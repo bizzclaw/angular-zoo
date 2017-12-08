@@ -1,0 +1,9 @@
+<div class="well">
+	<h1>{{title}}</h1>
+	<div *ngFor="let key of dataTypesKeys" class="form-group">
+		<p>Enter {{dataTypes[key].lang}}:</p>
+		<input type="{{dataTypes[key].type}}" min={{dataTypes[key]?.min}} max = {{dataTypes[key]?.max}} class="form-control" [(ngModel)]="animalFormData[key]">
+	</div>
+	<button (click)="clickConfirmAnimal()" class="btn btn-success">Confirm</button>
+	<button (click)="clickClosePanel()" class="btn btn-danger">Cancel</button>
+</div>
