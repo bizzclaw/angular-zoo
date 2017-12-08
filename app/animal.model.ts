@@ -24,7 +24,6 @@ export class Animal {
       let typeEnforcement = Animal.typeEnforcements[dataInfo.type]
       data[k] =  typeEnforcement? typeEnforcement(data[k]) : data[k]
     });
-    console.log(data);
     return data
   }
 
@@ -53,5 +52,6 @@ export class Animal {
   save() {
     this.id = Animal.animals.length;
     Animal.animals.push(this);
+    console.log(Animal.animals);
   }
 }

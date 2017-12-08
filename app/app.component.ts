@@ -8,12 +8,13 @@ import { Animal } from './animal.model';
     <div *ngIf="!newAnimalDisplay">
       <animal-list
         [childAnimalList]="masterAnimalList"
-        (sendOpenNewAnimal)="ToggleNewAnimal($event)"
+        (sendOpenNewAnimal)="toggleNewAnimal($event)"
+        (sendForgetAnimal)="forgetAnimal($event)"
       ></animal-list>
     </div>
     <animal-new *ngIf="newAnimalDisplay"
-      (SendcloseNewAnimal)="ToggleNewAnimal($event)"
-      (sendNewAnimal)="AddNewAnimal($event)"
+      (SendcloseNewAnimal)="toggleNewAnimal($event)"
+      (sendNewAnimal)="addNewAnimal($event)"
     ></animal-new>
   </div>
   `
@@ -33,13 +34,17 @@ export class AppComponent {
   ]
 
   newAnimalDisplay: boolean = false;
-  ToggleNewAnimal(show: boolean) {
+  toggleNewAnimal(show: boolean) {
     this.newAnimalDisplay = show;
   }
 
-  AddNewAnimal(animalData) {
+  addNewAnimal(animalData) {
     let newAnimal = new Animal(animalData);
-    // newAnimal.save;
+    // newAnimal.save();
     this.masterAnimalList.push(newAnimal);
+  }
+
+  forgetAnimal(animal) {
+    this.masterAnimalList.splice(animal.id, 1);
   }
 }

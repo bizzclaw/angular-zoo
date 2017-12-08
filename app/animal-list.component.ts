@@ -8,8 +8,12 @@ import { Animal } from './Animal.model';
 		<div class="col-md-3 animal-name">
 	    <h3>{{animal.data.name}}</h3>
     </div>
-		<div class="col-md-8 pnl animal-info">
+		<div class="col-md-6 pnl animal-info">
 			<p>Species: {{animal.data.species}}</p>
+    </div>
+		<div class="col-md-2 pnl animal-controls">
+			<button class="btn btn-info">Edit</button>
+			<button (click)="clickForgetAnimal(animal)" class="btn btn-danger">forget</button>
     </div>
   </div>
 	<button (click)="clickNewAnimal()" class="btn btn-info"> + Add New Animal</button>
@@ -19,8 +23,18 @@ import { Animal } from './Animal.model';
 export class AnimalListComponent {
   @Input() childAnimalList: Animal[];
 	@Output() sendOpenNewAnimal = new EventEmitter();
+	@Output() sendEditAnimal = new EventEmitter();
+	@Output() sendForgetAnimal = new EventEmitter();
 
 	clickNewAnimal() {
-		this.sendOpenNewAnimal.emit(true)
+		this.sendOpenNewAnimal.emit(true);
+	}
+
+	clickEditAnimal(animal: Animal) {
+		this.sendEditAnimal.emit(true);
+	}
+
+	clickForgetAnimal(animal: Animal) {
+		this.sendForgetAnimal.emit(animal);
 	}
 }

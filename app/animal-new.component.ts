@@ -8,7 +8,7 @@ import {Animal} from './Animal.model';
 		<h1> Add a new Animal</h1>
 		<div *ngFor="let key of dataTypesKeys" class="form-group">
 			<p>Enter {{dataTypes[key].lang}}:</p>
-			<input type="{{dataTypes[key].type}}" class="form-control" [(ngModel)]="newAnimalData[key]">
+			<input type="{{dataTypes[key].type}}" min={{dataTypes[key]?.min}} max = {{dataTypes[key]?.max}} class="form-control" [(ngModel)]="newAnimalData[key]">
 		</div>
 		<button (click)="clickNewAnimal()" class="btn btn-success">Confirm</button>
 		<button (click)="clickClosePanel()" class="btn btn-danger">Cancel</button>
