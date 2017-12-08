@@ -1,0 +1,9 @@
+body {
+  background-color: lightgrey;
+}
+
+.pnl-header {
+  background-color: darkgrey;
+  margin: -1px;
+  padding: 1%;
+}
