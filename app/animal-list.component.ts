@@ -4,7 +4,7 @@ import { Animal } from './Animal.model';
 @Component({
   selector: 'animal-list',
 	template: `
-		<div *ngFor="let animal of childAnimalList" class="row animal-card">
+		<div class="row animal-card" *ngFor="let animal of childAnimalList | filter: childFilters">
 			<div class="col-md-3 animal-name">
 				<h3>{{animal.data.name}}</h3>
 			</div>
@@ -22,9 +22,12 @@ import { Animal } from './Animal.model';
 
 export class AnimalListComponent {
   @Input() childAnimalList: Animal[];
+  @Input() childFilters: object;
 	@Output() sendOpenNewAnimal = new EventEmitter();
 	@Output() sendEditAnimal = new EventEmitter();
 	@Output() sendForgetAnimal = new EventEmitter();
+
+
 
 	clickNewAnimal() {
 		this.sendOpenNewAnimal.emit(true);

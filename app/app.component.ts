@@ -8,6 +8,7 @@ import { Animal } from './animal.model';
     <div *ngIf="!newAnimalDisplay && !editingAnimal">
       <animal-list
         [childAnimalList]="masterAnimalList"
+        [childFilters]="masterFilters"
         (sendOpenNewAnimal)="toggleNewAnimal($event)"
         (sendEditAnimal)="setEditAnimal($event)"
         (sendForgetAnimal)="forgetAnimal($event)"
@@ -37,6 +38,15 @@ export class AppComponent {
       name: "Fire",
       species: "Lion"
     }),
+  ]
+
+  masterFilters = [
+    {
+      dataType: "name",
+      comparison: "snow",
+      operation: "find"
+    },
+
   ]
 
   newAnimalDisplay: boolean = false;

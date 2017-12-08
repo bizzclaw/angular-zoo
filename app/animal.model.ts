@@ -15,6 +15,28 @@ export class Animal {
     }
   }
 
+  static calculateAge(birthdate) {
+    let now = new Date()
+    return now.getFullYear() - birthdate.getFullYear();
+  }
+
+
+  public static filterMethods = {
+    ["string"]: {
+      ["find"]: function(comparison, value) {
+        return value.toLowerCase().search(comparison.toLowerCase()) >= 0;
+      }
+    },
+    ["date"]: {
+      ["olderthan"]: function(comparison, value) {
+        return Animal.calculateAge(value) >= comparison;
+      },
+      ["youngerthan"]: function(comparison, value) {
+        return Animal.calculateAge(value) < comparison;
+      },
+    }
+  }
+
   static EnforceTypes(data) {
     let keys = Object.keys(data)
     keys.forEach(function(k) {
