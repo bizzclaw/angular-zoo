@@ -16,10 +16,12 @@ export class AppComponent {
   // masterAnimalList = Animal.getAll();
   masterAnimalList = [
     new Animal({
-      name: "Snow"
+      name: "Snow",
+      species: "White Fox"
     }),
     new Animal({
-      name: "Fire"
+      name: "Fire",
+      species: "Lion"
     }),
   ]
 }
