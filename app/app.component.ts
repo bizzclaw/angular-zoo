@@ -5,10 +5,16 @@ import { Animal } from './animal.model';
   selector: 'app-root',
   template: `
   <div class="container">
-    <animal-list
-      [childAnimalList]="masterAnimalList"
-    ></animal-list>
-    <animal-new></animal-new>
+    <div *ngIf="!newAnimalDisplay">
+      <animal-list
+        [childAnimalList]="masterAnimalList"
+        (sendOpenNewAnimal)="ToggleNewAnimal($event)"
+      ></animal-list>
+    </div>
+    <animal-new *ngIf="newAnimalDisplay"
+      (SendcloseNewAnimal)="ToggleNewAnimal($event)"
+      (sendNewAnimal)="AddNewAnimal($event)"
+    ></animal-new>
   </div>
   `
 })
@@ -25,4 +31,15 @@ export class AppComponent {
       species: "Lion"
     }),
   ]
+
+  newAnimalDisplay: boolean = false;
+  ToggleNewAnimal(show: boolean) {
+    this.newAnimalDisplay = show;
+  }
+
+  AddNewAnimal(animalData) {
+    let newAnimal = new Animal(animalData);
+    // newAnimal.save;
+    this.masterAnimalList.push(newAnimal);
+  }
 }

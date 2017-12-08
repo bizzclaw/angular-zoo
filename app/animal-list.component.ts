@@ -12,9 +12,15 @@ import { Animal } from './Animal.model';
 			<p>Species: {{animal.data.species}}</p>
     </div>
   </div>
+	<button (click)="clickNewAnimal()" class="btn btn-info"> + Add New Animal</button>
   `
 })
 
 export class AnimalListComponent {
   @Input() childAnimalList: Animal[];
+	@Output() sendOpenNewAnimal = new EventEmitter();
+
+	clickNewAnimal() {
+		this.sendOpenNewAnimal.emit(true)
+	}
 }
