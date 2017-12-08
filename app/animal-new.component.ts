@@ -6,13 +6,9 @@ import {Animal} from './Animal.model';
   template: `
   <div class="well">
 		<h1> Add a new Animal</h1>
-		<div *ngFor="let key of dataStringsKeys" class="form-group">
-			<p>Enter {{dataStrings[key]}}:</p>
-			<input class="form-control" [(ngModel)]="newAnimalData[key]">
-		</div>
-		<div *ngFor="let key of dataNumbersKeys" class="form-group">
-			<p>Enter {{dataNumbers[key][0]}}:</p>
-			<input class="form-control" type="number" min = {{dataNumbers[key][1]}} max = {{dataNumbers[key][2]}} [(ngModel)]="newAnimalData[key]">
+		<div *ngFor="let key of dataTypesKeys" class="form-group">
+			<p>Enter {{dataTypes[key].lang}}:</p>
+			<input type="{{dataTypes[key].type}}" class="form-control" [(ngModel)]="newAnimalData[key]">
 		</div>
 		<button (click)="clickNewAnimal()" class="btn btn-success">Confirm</button>
 		<button (click)="clickClosePanel()" class="btn btn-danger">Cancel</button>
@@ -24,10 +20,9 @@ export class AnimalNewComponent {
 	@Output() sendNewAnimal = new EventEmitter();
 	@Output() SendcloseNewAnimal = new EventEmitter();
 
-	dataStrings = Animal.dataStrings;
-	dataStringsKeys = Object.keys(Animal.dataStrings); // no 'for key, value in pairs()' in angular so I have to interate over keys and use that to index the object :(
-	dataNumbers = Animal.dataNumbers;
-	dataNumbersKeys = Object.keys(Animal.dataNumbers);
+	dataTypes = Animal.dataTypes;
+	dataTypesKeys = Object.keys(Animal.dataTypes); // no 'for key, value in pairs()' in angular so I have to interate over keys and use that to index the object :(
+
 	newAnimalData = {};
 
 	clickClosePanel() {

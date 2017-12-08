@@ -4,24 +4,19 @@ export class Animal {
 
   // DATA TYPES //
   //These Data types will auto fill themselves into edit/creation forms. Instad of adding that info to both edit and creation forms, they can be pulled directly from this list.
-  //dataString values simply equal their localized version
-  public static dataStrings: Object = {
-    ["name"]: "Name",
-    ["species"]: "Species",
-    ["likes"]: "Likes",
-    ["dislikes"]: "Dislikes",
-    ["location"]: "Location",
-    ["diet"]: "Diet",
+  //dataString values are objects with different properties.
+  public static dataTypes: Object = {
+    ["name"]: {lang: "Name", type: "string"},
+    ["species"]: {lang: "Species", type: "string"},
+    ["likes"]: {lang: "Likes", type: "string"},
+    ["dislikes"]: {lang: "Dislikes", type: "string"},
+    ["location"]: {lang: "Location", type: "string"},
+    ["diet"]: {lang: "Diet", type: "string"},
+    ["caretakers"]: {lang: "Needed Caretakers", type: "number", min: 1, max: 25},
+    ["sex"]: {lang: "Sex", type: "number", min: 0, max: 1, selections: ["Male", "Female"]},
   }
 
-  // dataNumber values are organized into an array, the position in the array links it to a specific key
-  //0th entry: Language Value
-  //1st entry: min possible
-  //2nd entry: Max possible
-  public static dataNumbers: Object = {
-    ["caretakers"]: ["Needed Caretakers", 1,10],
-    ["gender"]: ["Gender", 0,1],
-  }
+
 
   static getAll() {
     return Animal.animals;
