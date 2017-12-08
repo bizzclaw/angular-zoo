@@ -8,6 +8,7 @@ import { Animal } from './animal.model';
     <animal-list
       [childAnimalList]="masterAnimalList"
     ></animal-list>
+    <animal-new></animal-new>
   </div>
   `
 })
