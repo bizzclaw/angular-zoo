@@ -48,8 +48,7 @@ export class Animal {
       {
         lang: "Find",
         method: function(comparison, value) {
-          let pass = value.toLowerCase().search(comparison.toLowerCase()) !== -1
-          console.log(comparison, value, pass)
+          let pass = value.toLowerCase().search(comparison.toLowerCase()) !== -1;
           return pass;
         }
       }
@@ -109,6 +108,5 @@ export class Animal {
   save() {
     this.id = Animal.animals.length;
     Animal.animals.push(this);
-    console.log(Animal.animals);
   }
 }
