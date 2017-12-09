@@ -6,34 +6,25 @@ export class Animal {
   //These Data types will auto fill themselves into edit/creation forms. Instad of adding that info to both edit and creation forms, they can be pulled directly from this list.
   //dataString values are objects with different properties.
 
+  public static dataTypes: Object = {
+    ["name"]: {lang: "Name", type: "string"},
+    ["species"]: {lang: "Species", type: "string"},
+    ["likes"]: {lang: "Likes", type: "string"},
+    ["dislikes"]: {lang: "Dislikes", type: "string"},
+    ["location"]: {lang: "Location", type: "string"},
+    ["diet"]: {lang: "Diet", type: "string"},
+    ["dob"]: {lang: "Date of Birth", type: "date"},
+    ["caretakers"]: {lang: "Needed Caretakers", type: "number", min: 1, max: 25},
+    ["sex"]: {lang: "Sex", type: "number", min: 0, max: 1, selections: ["Male", "Female"]},
+  }
+
+  //applied to values of these types in order to make them the variable type they should be.
   public static typeEnforcements = {
     ["number"]: function(input) {
       return parseInt(input)
     },
     ["date"]: function(input) {
       return new Date(input);
-    }
-  }
-
-  static calculateAge(birthdate) {
-    let now = new Date()
-    return now.getFullYear() - birthdate.getFullYear();
-  }
-
-
-  public static filterMethods = {
-    ["string"]: {
-      ["find"]: function(comparison, value) {
-        return value.toLowerCase().search(comparison.toLowerCase()) >= 0;
-      }
-    },
-    ["date"]: {
-      ["olderthan"]: function(comparison, value) {
-        return Animal.calculateAge(value) >= comparison;
-      },
-      ["youngerthan"]: function(comparison, value) {
-        return Animal.calculateAge(value) < comparison;
-      },
     }
   }
 
@@ -49,16 +40,55 @@ export class Animal {
     return data
   }
 
-  public static dataTypes: Object = {
-    ["name"]: {lang: "Name", type: "string"},
-    ["species"]: {lang: "Species", type: "string"},
-    ["likes"]: {lang: "Likes", type: "string"},
-    ["dislikes"]: {lang: "Dislikes", type: "string"},
-    ["location"]: {lang: "Location", type: "string"},
-    ["diet"]: {lang: "Diet", type: "string"},
-    ["dob"]: {lang: "Date of Birth", type: "date"},
-    ["caretakers"]: {lang: "Needed Caretakers", type: "number", min: 1, max: 25},
-    ["sex"]: {lang: "Sex", type: "number", min: 0, max: 1, selections: ["Male", "Female"]},
+  // different methods for generating filters excepted by the main filter pipe, the filtering ui and filter pipe pull directly from this list.
+  public static filterMethods = {
+    ["string"]: [
+      {
+        lang: "Find",
+        method: function(comparison, value) {
+          return value.toLowerCase().search(comparison.toLowerCase()) >= 0;
+        }
+      }
+    ],
+    ["date"]: [
+      {
+        lang: "Older Than",
+        method: function(comparison, value) {
+          return Animal.calculateAge(value) >= comparison;
+        },
+      },
+      {
+        lang: "Younger Than",
+        method: function(comparison, value) {
+          return Animal.calculateAge(value) < comparison;
+        },
+      },
+    ],
+    ["number"]: [
+      {
+        lang: "Greater Than",
+        method: function(comparison, value) {
+          return value > comparison;
+        }
+      },
+      {
+        lang: "Exactly",
+        method: function(comparison, value) {
+          return value === comparison;
+        }
+      },
+      {
+        lang: "Less Than",
+        method: function(comparison, value) {
+          return value < comparison;
+        }
+      }
+    ]
+  }
+
+  static calculateAge(birthdate) {
+    let now = new Date()
+    return now.getFullYear() - birthdate.getFullYear();
   }
 
   static getAll() {

@@ -17,3 +17,16 @@ body {
 .animal-name {
   background-color: rgb(50,50,50);
 }
+
+.animal-button {
+  width: 100%;
+  float: right;
+}
+
+.dropdown-selection:hover {
+  cursor: pointer;
+}
+
+.filter-dropdown {
+  width: 150%;
+}

@@ -4,30 +4,77 @@ import { Animal } from './Animal.model';
 @Component({
   selector: 'animal-list',
 	template: `
-		<div class="row animal-card" *ngFor="let animal of childAnimalList | filter: childFilters">
-			<div class="col-md-3 animal-name">
-				<h3>{{animal.data.name}}</h3>
-			</div>
-			<div class="col-md-6 pnl animal-info">
-				<p>Species: {{animal.data.species}}</p>
-			</div>
-			<div class="col-md-2 pnl animal-controls">
-				<button (click)="clickEditAnimal(animal)" class="btn btn-info">Edit</button>
-				<button (click)="clickForgetAnimal(animal)" class="btn btn-danger">forget</button>
-			</div>
-		</div>
+    <div class="row">
+      <div *ngFor="let filter of filters" class="col-md-4">
+        <div class="row">
+          <div class="col-md-3">
+            <button class="btn btn-default dropdown-toggle filter-dropdown" type="button" id="filter-datatype-{{filter.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <!-- {{dataTypes[filter.dataType].lang}} -->
+              Key
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let type of dataTypeKeys" (click) = "filter.dataType = type" class="dropdown-selection">{{dataTypes[type].lang}}</li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-default dropdown-toggle filter-dropdown" type="button" id="filter-operation-{{filter.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Filter
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let type of dataTypeKeys" (click) = "filter.dataType = type" class="dropdown-selection">{{dataTypes[type].lang}}</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <input class="form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="clickAddFilter()" class="btn btn-warning">+ Filter</button>
+
+    <div class="animal-list">
+  		<div class="row animal-card" *ngFor="let animal of childAnimalList | filter: filters">
+  			<div class="col-md-3 animal-name">
+  				<h2>{{animal.data.name}}</h2>
+  				<h3>{{animal.data.species}}</h3>
+  			</div>
+  			<div class="col-md-8 pnl animal-info">
+  			</div>
+  			<div class="col-md-1 pnl animal-controls">
+  				<button (click)="clickEditAnimal(animal)" class="btn btn-info animal-button">Edit</button>
+  				<button (click)="clickForgetAnimal(animal)" class="btn btn-danger animal-button">forget</button>
+  			</div>
+  		</div>
+    </div>
 		<button (click)="clickNewAnimal()" class="btn btn-info"> + Add New Animal</button>
 	`
 })
 
 export class AnimalListComponent {
   @Input() childAnimalList: Animal[];
-  @Input() childFilters: object;
 	@Output() sendOpenNewAnimal = new EventEmitter();
 	@Output() sendEditAnimal = new EventEmitter();
 	@Output() sendForgetAnimal = new EventEmitter();
 
+  dataTypes = Animal.dataTypes
+  dataTypeKeys = Object.keys(Animal.dataTypes)
 
+  filterMethods = Animal.filterMethods;
+  filterMethod
+
+  filters = [];
+
+  clickAddFilter() {
+    this.filters.push({
+      id: this.filters.length,
+      dataType: "name",
+      comparison: "snow",
+      operation: "find"
+    })
+  }
 
 	clickNewAnimal() {
 		this.sendOpenNewAnimal.emit(true);
