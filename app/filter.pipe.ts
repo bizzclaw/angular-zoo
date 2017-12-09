@@ -16,7 +16,10 @@ export class FilterPipe implements PipeTransform {
 				let dataInfo = Animal.dataTypes[filter.dataType]
 				let value = animal.data[filter.dataType];
 				let comparer = Animal.filterMethods[dataInfo.type][filter.operation].method;
-				if (comparer && filter.comparison && value && !comparer(filter.comparison, value)) {
+				let typeEnforcement = Animal.typeEnforcements[dataInfo.dataType]
+				let comparison = typeEnforcement ? typeEnforcement(filter.comparison) : filter.comparison;
+
+				if (comparer && filter.comparison && value && !comparer(comparison, value)) {
 					shouldAdd = false
 				}
 			});

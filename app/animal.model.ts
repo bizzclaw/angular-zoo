@@ -77,7 +77,7 @@ export class Animal {
       {
         lang: "Exactly",
         method: function(comparison, value) {
-          return value === comparison;
+          return value == comparison;
         }
       },
       {
