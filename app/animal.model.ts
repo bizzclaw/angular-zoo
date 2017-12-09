@@ -13,9 +13,11 @@ export class Animal {
     ["dislikes"]: {lang: "Dislikes", type: "string"},
     ["location"]: {lang: "Location", type: "string"},
     ["diet"]: {lang: "Diet", type: "string"},
-    ["dob"]: {lang: "Date of Birth", type: "date"},
+    ["dob"]: {lang: "Date of Birth", listLang: "Age", type: "date", listDisplay: function(value) {
+      return Animal.calculateAge(value);
+    }},
     ["caretakers"]: {lang: "Needed Caretakers", type: "number", min: 1, max: 25},
-    ["sex"]: {lang: "Sex", type: "number", min: 0, max: 1, selections: ["Male", "Female"]},
+    ["sex"]: {lang: "Sex", type: "string", selections: ["Male", "Female"]},
   }
 
   //applied to values of these types in order to make them the variable type they should be.
@@ -23,9 +25,9 @@ export class Animal {
     ["number"]: function(input) {
       return parseInt(input)
     },
-    ["date"]: function(input) {
-      return new Date(input);
-    }
+    // ["date"]: function(input) {
+    //   return new Date(input);
+    // }
   }
 
   static EnforceTypes(data) {
@@ -46,8 +48,9 @@ export class Animal {
       {
         lang: "Find",
         method: function(comparison, value) {
-          console.log(value.toLowerCase().search(comparison.toLowerCase()))
-          return value.toLowerCase().search(comparison.toLowerCase()) !== -1;
+          let pass = value.toLowerCase().search(comparison.toLowerCase()) !== -1
+          console.log(comparison, value, pass)
+          return pass;
         }
       }
     ],
@@ -88,8 +91,9 @@ export class Animal {
   }
 
   static calculateAge(birthdate) {
-    let now = new Date()
-    return now.getFullYear() - birthdate.getFullYear();
+    let now = new Date();
+    let birthDay = new Date(birthdate);
+    return now.getFullYear() - birthDay.getFullYear();
   }
 
   static getAll() {

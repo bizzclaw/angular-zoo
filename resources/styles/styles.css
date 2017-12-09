@@ -2,25 +2,11 @@ body {
   background-color: lightgrey;
 }
 
-.pnl-header {
-  background-color: darkgrey;
-  margin: -1px;
-  padding: 1%;
-}
-
-.animal-card {
-  margin: 5px;
-  background: rgb(120,120,120);
-  color: white;
-}
-
-.animal-name {
-  background-color: rgb(50,50,50);
-}
 
 .animal-button {
   width: 100%;
   float: right;
+  margin: 5px;
 }
 
 .dropdown-selection:hover {

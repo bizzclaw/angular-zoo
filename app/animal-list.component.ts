@@ -7,7 +7,7 @@ import { Animal } from './Animal.model';
     <div class="row">
       <div *ngFor="let filter of filters" class="col-md-4">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-6">
             <button class="btn btn-default dropdown-toggle filter-dropdown" type="button" id="filter-datatype-{{filter.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{dataTypes[filter.dataType].lang}}
               <span class="caret"></span>
@@ -16,7 +16,7 @@ import { Animal } from './Animal.model';
               <li *ngFor="let type of dataTypeKeys" (click) = "filter.dataType = type" class="dropdown-selection">{{dataTypes[type].lang}}</li>
             </ul>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-6">
             <button class="btn btn-default dropdown-toggle filter-dropdown" type="button" id="filter-operation-{{filter.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{filterMethods[dataTypes[filter.dataType].type][filter.operation].lang}}
               <span class="caret"></span>
@@ -25,7 +25,7 @@ import { Animal } from './Animal.model';
               <li *ngFor="let method of filterMethods[dataTypes[filter.dataType].type]; let i = index" (click) = "filter.operation = i" class="dropdown-selection">{{method.lang}}</li>
             </ul>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <input class="form-control" [(ngModel)]="filter.comparison">
           </div>
         </div>
@@ -34,20 +34,14 @@ import { Animal } from './Animal.model';
 
     <button (click)="clickAddFilter()" class="btn btn-warning">+ Filter</button>
 
-    <div class="animal-list">
-  		<div class="row animal-card" *ngFor="let animal of childAnimalList | filter: filters">
-  			<div class="col-md-3 animal-name">
-  				<h2>{{animal.data.name}}</h2>
-  				<h3>{{animal.data.species}}</h3>
-  			</div>
-  			<div class="col-md-8 pnl animal-info">
-  			</div>
-  			<div class="col-md-1 pnl animal-controls">
-  				<button (click)="clickEditAnimal(animal)" class="btn btn-info animal-button">Edit</button>
-  				<button (click)="clickForgetAnimal(animal)" class="btn btn-danger animal-button">forget</button>
-  			</div>
-  		</div>
-    </div>
+    <div class="animal-list row">
+  		<div class="col-md-4 panel panel-default" *ngFor="let animal of childAnimalList | filter: filters">
+        <ul *ngFor="let dataKey of dataTypeKeys">
+          <li>{{dataTypes[dataKey].listLang ? dataTypes[dataKey].listLang : dataTypes[dataKey].lang}}: {{dataTypes[dataKey].listDisplay ? dataTypes[dataKey].listDisplay(animal.data[dataKey]) : animal.data[dataKey]}}</li>
+        </ul>
+				<button id="edit-{{animal.id}}" (click)="clickEditAnimal(animal)" class="btn btn-info animal-button">Edit</button>
+				<button id="forget-{{animal.id}}" (click)="clickForgetAnimal(animal)" class="btn btn-danger animal-button">forget</button>
+      </div>
 		<button (click)="clickNewAnimal()" class="btn btn-info"> + Add New Animal</button>
 	`
 })
