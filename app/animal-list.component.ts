@@ -13,7 +13,7 @@ import { Animal } from './Animal.model';
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li *ngFor="let type of dataTypeKeys" (click) = "filter.dataType = type" class="dropdown-selection">{{dataTypes[type].lang}}</li>
+              <li *ngFor="let type of dataTypeKeys" (click) = "filter.dataType = type" class="dropdown-selection"> - {{dataTypes[type].lang}}</li>
             </ul>
           </div>
           <div class="col-md-6">
@@ -22,7 +22,7 @@ import { Animal } from './Animal.model';
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li *ngFor="let method of filterMethods[dataTypes[filter.dataType].type]; let i = index" (click) = "filter.operation = i" class="dropdown-selection">{{method.lang}}</li>
+              <li *ngFor="let method of filterMethods[dataTypes[filter.dataType].type]; let i = index" (click) = "filter.operation = i" class="dropdown-selection"> - {{method.lang}}</li>
             </ul>
           </div>
           <div class="col-md-12">
@@ -35,12 +35,19 @@ import { Animal } from './Animal.model';
     <button (click)="clickAddFilter()" class="btn btn-warning">+ Filter</button>
 
     <div class="animal-list row">
-  		<div class="col-md-4 panel panel-default" *ngFor="let animal of childAnimalList | filter: filters">
-        <ul *ngFor="let dataKey of dataTypeKeys">
-          <li>{{dataTypes[dataKey].listLang ? dataTypes[dataKey].listLang : dataTypes[dataKey].lang}}: {{dataTypes[dataKey].listDisplay ? dataTypes[dataKey].listDisplay(animal.data[dataKey]) : animal.data[dataKey]}}</li>
-        </ul>
-				<button id="edit-{{animal.id}}" (click)="clickEditAnimal(animal)" class="btn btn-info animal-button">Edit</button>
-				<button id="forget-{{animal.id}}" (click)="clickForgetAnimal(animal)" class="btn btn-danger animal-button">forget</button>
+  		<div class="col-md-4" *ngFor="let animal of childAnimalList | filter: filters">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">{{animal.data.name}}</h2>
+          </div>
+          <div class="panel-body">
+            <ul *ngFor="let dataKey of dataTypeKeys">
+              <li *ngIf="dataKey !== 'name'" >{{dataTypes[dataKey].listLang ? dataTypes[dataKey].listLang : dataTypes[dataKey].lang}}: {{dataTypes[dataKey].listDisplay ? dataTypes[dataKey].listDisplay(animal.data[dataKey]) : animal.data[dataKey]}}</li>
+            </ul>
+    				<button id="edit-{{animal.id}}" (click)="clickEditAnimal(animal)" class="btn btn-info animal-button">Edit</button>
+    				<button id="forget-{{animal.id}}" (click)="clickForgetAnimal(animal)" class="btn btn-danger animal-button">forget</button>
+          </div>
+        </div>
       </div>
 		<button (click)="clickNewAnimal()" class="btn btn-info"> + Add New Animal</button>
 	`
