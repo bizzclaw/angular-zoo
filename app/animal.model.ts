@@ -46,7 +46,8 @@ export class Animal {
       {
         lang: "Find",
         method: function(comparison, value) {
-          return value.toLowerCase().search(comparison.toLowerCase()) >= 0;
+          console.log(value.toLowerCase().search(comparison.toLowerCase()))
+          return value.toLowerCase().search(comparison.toLowerCase()) !== -1;
         }
       }
     ],

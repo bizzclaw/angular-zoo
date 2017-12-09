@@ -9,8 +9,7 @@ import { Animal } from './Animal.model';
         <div class="row">
           <div class="col-md-3">
             <button class="btn btn-default dropdown-toggle filter-dropdown" type="button" id="filter-datatype-{{filter.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <!-- {{dataTypes[filter.dataType].lang}} -->
-              Key
+              {{dataTypes[filter.dataType].lang}}
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
@@ -19,7 +18,7 @@ import { Animal } from './Animal.model';
           </div>
           <div class="col-md-3">
             <button class="btn btn-default dropdown-toggle filter-dropdown" type="button" id="filter-operation-{{filter.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Filter
+              {{filterMethods[dataTypes[filter.dataType].type][filter.operation].lang}}
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
