@@ -8,26 +8,22 @@ import {Animal} from './animal.model';
 
 export class FilterPipe implements PipeTransform {
 	transform(input: Animal[], filters){
-		let output = []; // copy the array
-		console.log(input);
+		var output = [];
 		for (var i = 0; i < input.length; i++) {
 			var animal = input[i]
-			if (filters.length < 1) {
-				output.push(animal);
-			}
-			else {
-				filters.forEach(function(filter) {
-					let dataInfo = Animal.dataTypes[filter.dataType]
-					let value = animal.data[filter.dataType];
-					let comparer = Animal.filterMethods[dataInfo.type][filter.operation].method;
-
-					if (!comparer || !filter.comparison || !value || comparer(filter.comparison, value)) {
-						output.push(animal);
-					}
-				});
+			var shouldAdd = true;
+			filters.forEach(function(filter) {
+				let dataInfo = Animal.dataTypes[filter.dataType]
+				let value = animal.data[filter.dataType];
+				let comparer = Animal.filterMethods[dataInfo.type][filter.operation].method;
+				if (comparer && filter.comparison && value && !comparer(filter.comparison, value)) {
+					shouldAdd = false
+				}
+			});
+			if (shouldAdd) {
+				output.push(animal)
 			}
 		}
-		console.log(output)
 		return output;
 	}
 }
