@@ -23,11 +23,11 @@ import { Animal } from './Animal.model';
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li *ngFor="let type of dataTypeKeys" (click) = "filter.dataType = type" class="dropdown-selection">{{dataTypes[type].lang}}</li>
+              <li *ngFor="let method of filterMethods[dataTypes[filter.dataType].type]; let i = index" (click) = "filter.operation = i" class="dropdown-selection">{{method.lang}}</li>
             </ul>
           </div>
           <div class="col-md-6">
-            <input class="form-control">
+            <input class="form-control" [(ngModel)]="filter.comparison">
           </div>
         </div>
       </div>
@@ -63,7 +63,6 @@ export class AnimalListComponent {
   dataTypeKeys = Object.keys(Animal.dataTypes)
 
   filterMethods = Animal.filterMethods;
-  filterMethod
 
   filters = [];
 
@@ -71,8 +70,8 @@ export class AnimalListComponent {
     this.filters.push({
       id: this.filters.length,
       dataType: "name",
-      comparison: "snow",
-      operation: "find"
+      comparison: "",
+      operation: 0
     })
   }
 

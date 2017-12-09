@@ -3,7 +3,7 @@
 ##### by Joseph Tomlinson
 ---
 
-
+Keep track of some animals.
 
 ## Requirements
 Node packet Manager (NPM)
