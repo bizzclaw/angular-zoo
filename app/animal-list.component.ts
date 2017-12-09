@@ -4,6 +4,9 @@ import { Animal } from './Animal.model';
 @Component({
   selector: 'animal-list',
 	template: `
+    <button *ngIf="filters.length < 6" (click)="clickAddFilter()" class="btn btn-warning">+ Add Filter</button>
+    <button *ngIf="filters.length > 0" (click)="clickRemoveFilter()" class="btn btn-danger">- Remove Filter</button>
+
     <div class="row">
       <div *ngFor="let filter of filters" class="col-md-4">
         <div class="row">
@@ -31,8 +34,6 @@ import { Animal } from './Animal.model';
         </div>
       </div>
     </div>
-
-    <button (click)="clickAddFilter()" class="btn btn-warning">+ Filter</button>
 
     <div class="animal-list row">
   		<div class="col-md-4" *ngFor="let animal of childAnimalList | filter: filters">
@@ -73,6 +74,10 @@ export class AnimalListComponent {
       comparison: "",
       operation: 0
     })
+  }
+
+  clickRemoveFilter() {
+    this.filters.pop();
   }
 
 	clickNewAnimal() {
